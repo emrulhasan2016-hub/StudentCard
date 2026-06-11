@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, View , TouchableOpacity} from "react-native";
 
 interface ProfileCardProps {
   name: string;
@@ -12,7 +13,15 @@ export default function ProfileCard({
   studentId,
   department,
   bio,
-}: ProfileCardProps) {
+}:
+
+ ProfileCardProps) {
+    const [followed, setFollowed] = useState(false);
+
+const handleFollow = () => {
+  setFollowed(!followed);
+};
+
 
   const initials = name
     .split(" ")
@@ -41,10 +50,28 @@ export default function ProfileCard({
 
       <Text style={styles.bio}>
         {bio}
+        <TouchableOpacity
+  style={[
+    styles.button,
+    followed && styles.buttonFollowed
+  ]}
+  onPress={handleFollow}
+>
+  <Text
+    style={[
+      styles.buttonText,
+      followed && styles.buttonTextFollowed
+    ]}
+  >
+    {followed ? "Following ✓" : "Follow"}
+  </Text>
+</TouchableOpacity>
       </Text>
     </View>
+    
   );
 }
+
 
 const styles = StyleSheet.create({
   card: {
@@ -106,4 +133,25 @@ const styles = StyleSheet.create({
     color: "#64748B",
     textAlign: "center",
   },
+  button: {
+  marginTop: 20,
+  paddingVertical: 10,
+  paddingHorizontal: 32,
+  borderRadius: 24,
+  borderWidth: 2,
+  borderColor: "#0D9488",
+},
+
+buttonFollowed: {
+  backgroundColor: "#0D9488",
+},
+
+buttonText: {
+  color: "#0D9488",
+  fontWeight: "600",
+},
+
+buttonTextFollowed: {
+  color: "#FFFFFF",
+},
 });
