@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { StyleSheet, Text, View , TouchableOpacity} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 
 interface ProfileCardProps {
   name: string;
   studentId: string;
   department: string;
   bio: string;
+  skills?: string[];
 }
 
 export default function ProfileCard({
@@ -13,27 +19,23 @@ export default function ProfileCard({
   studentId,
   department,
   bio,
-}:
+  skills = [],
+}: ProfileCardProps) {
+  const [followed, setFollowed] = useState(false);
 
- ProfileCardProps) {
-    const [followed, setFollowed] = useState(false);
-
-const handleFollow = () => {
-  setFollowed(!followed);
-};
-
+  const handleFollow = () => {
+    setFollowed(!followed);
+  };
 
   const initials = name
     .split(" ")
-    .map(word => word[0])
+    .map((word) => word[0])
     .join("");
 
   return (
     <View style={styles.card}>
       <View style={styles.avatar}>
-        <Text style={styles.avatarText}>
-          {initials}
-        </Text>
+        <Text style={styles.avatarText}>{initials}</Text>
       </View>
 
       <Text style={styles.name}>{name}</Text>
@@ -42,36 +44,41 @@ const handleFollow = () => {
         ID: {studentId}
       </Text>
 
-      <Text style={styles.role}>
-        {department}
-      </Text>
+      <Text style={styles.role}>{department}</Text>
 
       <View style={styles.divider} />
 
-      <Text style={styles.bio}>
-        {bio}
-        <TouchableOpacity
-  style={[
-    styles.button,
-    followed && styles.buttonFollowed
-  ]}
-  onPress={handleFollow}
->
-  <Text
-    style={[
-      styles.buttonText,
-      followed && styles.buttonTextFollowed
-    ]}
-  >
-    {followed ? "Following ✓" : "Follow"}
-  </Text>
-</TouchableOpacity>
-      </Text>
+      <Text style={styles.bio}>{bio}</Text>
+
+      {/* Skills Section */}
+      <View style={styles.skillsContainer}>
+        {skills.map((skill, index) => (
+          <View key={index} style={styles.skillBadge}>
+            <Text style={styles.skillText}>{skill}</Text>
+          </View>
+        ))}
+      </View>
+
+      {/* Follow Button */}
+      <TouchableOpacity
+        style={[
+          styles.button,
+          followed && styles.buttonFollowed,
+        ]}
+        onPress={handleFollow}
+      >
+        <Text
+          style={[
+            styles.buttonText,
+            followed && styles.buttonTextFollowed,
+          ]}
+        >
+          {followed ? "Following ✓" : "Follow"}
+        </Text>
+      </TouchableOpacity>
     </View>
-    
   );
 }
-
 
 const styles = StyleSheet.create({
   card: {
@@ -103,6 +110,8 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 22,
     fontWeight: "bold",
+    color: "#0D1F4E",
+    marginBottom: 2,
   },
 
   idBadge: {
@@ -113,6 +122,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     borderRadius: 20,
     marginBottom: 4,
+    overflow: "hidden",
   },
 
   role: {
@@ -132,26 +142,53 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#64748B",
     textAlign: "center",
+    lineHeight: 22,
   },
+
+  skillsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginTop: 12,
+    gap: 8,
+  },
+
+  skillBadge: {
+    backgroundColor: "#EFF6FF",
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderWidth: 1,
+    borderColor: "#BFDBFE",
+  },
+
+  skillText: {
+    fontSize: 12,
+    color: "#1D4ED8",
+    fontWeight: "500",
+  },
+
   button: {
-  marginTop: 20,
-  paddingVertical: 10,
-  paddingHorizontal: 32,
-  borderRadius: 24,
-  borderWidth: 2,
-  borderColor: "#0D9488",
-},
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 32,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: "#0D9488",
+    backgroundColor: "transparent",
+  },
 
-buttonFollowed: {
-  backgroundColor: "#0D9488",
-},
+  buttonFollowed: {
+    backgroundColor: "#0D9488",
+  },
 
-buttonText: {
-  color: "#0D9488",
-  fontWeight: "600",
-},
+  buttonText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#0D9488",
+  },
 
-buttonTextFollowed: {
-  color: "#FFFFFF",
-},
+  buttonTextFollowed: {
+    color: "#FFFFFF",
+  },
 });

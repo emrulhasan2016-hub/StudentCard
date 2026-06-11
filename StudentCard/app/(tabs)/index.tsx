@@ -8,17 +8,36 @@ export default function App() {
       <StatusBar style="dark" />
 
       <ProfileCard
-        name="Emrul Hasan"
-        studentId="YOUR-ID"
-        department="Computer Science - AIUB"
-        bio="Passionate about software development."
+        name="YOUR NAME"
+        studentId="YOUR ID"
+        department="Computer Science — AIUB"
+        bio="Write something about yourself."
+        skills={[
+          "React Native",
+          "JavaScript",
+          "Node.js",
+          "PostgreSQL"
+        ]}
       />
 
       <ProfileCard
         name="Rakib Rahman"
         studentId="22-67890-2"
-        department="Computer Science - AIUB"
-        bio="Interested in AI and Full Stack Development."
+        department="Computer Science — AIUB"
+        bio="Interested in AI and full-stack web development."
+        skills={[
+          "Python",
+          "Machine Learning",
+          "React",
+          "Django"
+        ]}
+      />
+
+      <ProfileCard
+        name="Saad Al Rafi"
+        studentId="22-54321-3"
+        department="Computer Science — AIUB"
+        bio="Aspiring software engineer with a passion for mobile apps."
       />
     </ScrollView>
   );
