@@ -8,8 +8,8 @@ export default function App() {
       <StatusBar style="dark" />
 
       <ProfileCard
-        name="YOUR NAME"
-        studentId="YOUR ID"
+        name="Emrul hassan"
+        studentId="22-49119-3"
         department="Computer Science — AIUB"
         bio="Write something about yourself."
         skills={[
